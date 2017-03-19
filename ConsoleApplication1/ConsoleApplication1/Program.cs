@@ -12,6 +12,17 @@ namespace ConsoleApplication1
 {
     class Program
     {
+        static void serial(List<PC> list){
+            BinaryFormatter bf = new BinaryFormatter();
+            string path = "D:/volodkevich/c#/serialPC";
+            for (var i = 0; i < list.Count; i++)
+            {
+                FileStream fs = new FileStream(String.Format(path + "/" + (i + 1) + ".txt"), FileMode.Create, FileAccess.ReadWrite);
+                bf.Serialize(fs, list[i]);
+                fs.Close();
+                fs.Dispose();
+            }
+        }
         static void Main(string[] args)
         {
             List<PC> pcLIST = new List<PC>();
@@ -33,7 +44,7 @@ namespace ConsoleApplication1
                 bw.Serialize(fs, pcLIST[i]);
             }
             fs.Close();
-       
+            serial(pcLIST);
            
         }
     }

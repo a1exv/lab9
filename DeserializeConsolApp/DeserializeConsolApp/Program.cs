@@ -11,6 +11,20 @@ namespace DeserializeConsolApp
 {
     class Program
     {
+        static void deserial(string path)
+        {
+            List<string> listFiles = new List<string>(Directory.GetFiles(path));
+            BinaryFormatter bf = new BinaryFormatter();
+            for (var i = 0; i < listFiles.Count; i++)
+            {
+                FileStream fs = new FileStream(listFiles[i], FileMode.Open, FileAccess.Read);
+                PC tmp = null;
+                tmp =(PC) bf.Deserialize(fs);
+                Console.WriteLine(tmp.isOn);
+                fs.Close();
+                fs.Dispose();
+            }
+        }
         static void Main(string[] args)
         {
             List<PC> list = new List<PC>();
@@ -25,6 +39,7 @@ namespace DeserializeConsolApp
             } while (fs.Position!=fs.Length);
             fs.Close();
             Console.WriteLine(list[2].isOn);
+            deserial("D:/volodkevich/c#/serialPC/");
         }
     }
 }
